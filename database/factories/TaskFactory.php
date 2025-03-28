@@ -22,7 +22,7 @@ class TaskFactory extends Factory
             'due_date' => $this->faker->date,
             'status' => $this->faker->randomElement(['Pending', 'in_progress', 'Completed']),
             'priority' => $this->faker->randomElement(['Low', 'Medium', 'High']),
-            'user_id' => \App\Models\User::inRandomOrder()->first()->id ?? \App\Models\User::factory()->create()->id,
+            'user_id' => \App\Models\User::pluck('id')->random(),
         ];
     }
 }
