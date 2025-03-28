@@ -29,7 +29,7 @@ class TaskController extends Controller
      */
     public function create()
     {
-        $view = view('tasks.ajax.create')->render(); // Infinite loop risk
+        $view = view('tasks.ajax.create')->render(); 
         return response()->json(['view' => $view]);
     }
 
@@ -47,7 +47,7 @@ class TaskController extends Controller
         ]);
 
         $task = new Task();
-        $task->user_id = Auth::id(); // Assign task to logged-in user
+        $task->user_id = Auth::id();
         $task->title = $request->title;
         $task->description = $request->description;
         $task->due_date = $request->due_date;
@@ -82,7 +82,7 @@ class TaskController extends Controller
      */
     public function update(Request $request, Task $task)
     {
-        // Validate input fields
+
         $request->validate([
             'title' => 'required|string|max:255',
             'description' => 'required|string',
@@ -91,13 +91,12 @@ class TaskController extends Controller
             'priority' => 'required|in:low,medium,high',
         ]);
 
-        // Update task details
         $task->title = $request->title;
         $task->description = $request->description;
         $task->due_date = $request->due_date;
         $task->status = $request->status;
         $task->priority = $request->priority;
-        $task->save(); // Save updated task
+        $task->save();
 
         // Return success response
         return response()->json([
